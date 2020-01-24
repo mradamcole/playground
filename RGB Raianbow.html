@@ -1,0 +1,56 @@
+<html>
+<head>
+<script>
+
+function rainbow(stops) {
+  var s = "<table><tr>";
+  for (var i=0; i<stops; i++) {
+    var c = i/stops;
+    s += "<td style='background-color: ";
+//    s += "rgb(" + rainbowStop2(c) +")";
+    s += rainbowStop(c,1,.5);
+    s += "; width:15px; height:15px'></td>";
+  }
+  s += "</tr></table>"
+  document.write(s);
+}
+
+//derived from http://bit.ly/30qC25j
+
+//Readable
+function hue2rgb(t) {
+      if(t < 0) t += 1;
+      if(t > 1) t -= 1;
+      if(t < 1/6) return 6 * t;
+      if(t < 1/2) return 1;
+      if(t < 2/3) return (2/3 - t) * 6;
+      return 0;
+   }
+function rainbowStop2(h){
+  r = hue2rgb( h + 1/3);
+  g = hue2rgb( h);
+  b = hue2rgb( h - 1/3);
+  return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+}
+
+//Compact
+function rainbowStop(h) 
+{
+  let f= (n,k=(n+h*12)%12) => .5-.5*Math.max(Math.min(k-3,9-k,1),-1);  
+  let rgb2hex = (r,g,b) => "#"+[r,g,b].map(x=>Math.round(x*255).toString(16).padStart(2,0)).join('');
+  return ( rgb2hex(f(0), f(8), f(4)) );
+} 
+
+</script>  
+</head><body>
+
+    <a href="https://codepen.io/mradamcole/pen/yWXyPz">CodePen https://codepen.io/mradamcole/pen/yWXyPz</a>
+
+<script>    
+    rainbow(10);
+    rainbow(25);
+    rainbow(100);
+    rainbow(360);
+</script>
+</body>
+</html>
